@@ -21,7 +21,77 @@
 	</div>
 
 	<div class="wrapper">
-		<h2>Sell</h2>			
+		<h2>Sell</h2>
+
+		<tr>
+			<td colspan="4">
+				<center>
+					<form name="volunteer_info" method="post" id="volunteer_form" action="Demo.php" onsubmit="return validateForm()">
+						<h3>Enter the book information</h3>
+						<div id="formFeedback" class="formError"></div>
+						<table>
+							<tbody>
+								<tr>
+									<td>Book Title: </td>
+									<td><input type="text" name="bookTitle" maxlength="50" size="50" align="left"></input></td>
+									<td><div id="bookTitleFeedback" class="formError"></div></td>
+								</tr>
+								<tr>
+									<td>Author Name: </td>
+									<td><input type="text" name="authorName" maxlength="50" size="50" align="left"></input></td>
+									<td><div id="authorNameFeedback" class="formError"></div></td>
+								</tr>
+								<tr>
+									<td>Upload Photo: </td>
+									<td><form action="/action_page.php">
+									<input type="file" name="pic" accept="image/*">
+									</form>
+									</td>
+								</tr>
+								<tr>
+									<td>Your Name: </td>
+									<td><input type="text" name="sellerName" size="50" align="left"></input></td>
+									<td><div id="sellerNameFeedback" class="formError"></div></td>
+								</tr>
+								<tr>
+									<td>Email Address: </td>
+									<td><input type="text" name="emailAddress" size="50" align="left"></input></td>
+									<td><div id="emailAddressFeedback" class="formError"></div></td>
+								</tr>
+								<tr>
+									<td>Phone Number: </td>
+									<td><input type="text" name="number" size="10" align="left"></input></td>
+									<td><div id="numberFeedback" class="formError"></div></td>
+								</tr>
+								<tr>
+									<td>Squadron: </td>
+									<td><input type="text" name="age" size="2" align="left"></input></td>
+									<td><div id="squadronFeedback" class="formError"></div></td>
+								</tr>
+								<tr>
+									<td>Condition: </td>
+									<td>
+										<input type="radio" name="condition" value="N" align="left">Like New</input>
+										<input type="radio" name="condition" value="G" align="left">Good</input>   
+										<input type="radio" name="condition" value="F" align="left">Fair</input>
+										<input type="radio" name="condition" value="P" align="left">Poor</input>
+									</td>
+									<td><div id="conditionFeedback" class="formError"></div></td>
+								</tr>
+								<tr>
+									<td>Password: </td>
+									<td><input type="text" name="password" size="32" align="left"></input></td>
+									<td><div id="passwordFeedback" class="formError"></div></td>
+								</tr>
+								<tr>
+									<td colspan="2"><br/><input type="submit" value="Sell"></input></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</center>
+			</td>
+		</tr>
 	</div>
 
 </body>
