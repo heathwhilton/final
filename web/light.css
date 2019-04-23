@@ -1,0 +1,151 @@
+html, body
+{
+	height: 100%;
+}
+
+body
+{
+	margin: 0px;
+	padding: 0px;
+	background-image: url("img/WebsitePic3.jpg");
+	background-color: blue;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	font-size: 12pt;
+	color: white;
+}
+
+/*******************************Defaults******************************************/
+h1, h2, h3
+{
+	margin: 20px;
+	color: white;
+}
+
+p, ol, ul
+{
+	margin-top: 0;
+}
+
+ol, ul
+{
+	padding: 0;
+	list-style: none;
+}
+
+p
+{
+	margin: 25px;
+	font-size: 12pt;
+	color: white;
+}
+
+a
+{
+	color: blue;
+}
+
+a:hover
+{
+	text-decoration: underline;
+}
+
+.container
+{
+	margin: 0px auto;
+	width: 100%;
+}
+
+/*******************************Header*******************************************/
+#header
+{
+	text-align: center;
+}
+
+/********************************Logo********************************************/
+#logo
+{
+	padding: 50px 0px 25px 0px;
+	text-shadow: -3px 3px black;
+}
+
+#logo h1
+{
+	display: block;
+	margin-bottom: 5px;
+	padding: 5px 10px;
+	font-size: 55pt;
+}
+
+#logo a
+{
+	text-decoration: none;
+	color: white;
+}
+
+/***********************************Menu***************************************/
+#menu
+{
+	height: 40px;
+}
+
+#menu ul
+{
+	display: inline-block;
+	padding: 0px 30px;
+	text-align: center;
+}
+
+#menu li
+{
+	display: inline-block;
+}
+
+#menu li a, #menu li span
+{
+	display: inline-block;
+	padding: 0px 15px;
+	text-decoration: none;
+	font-size: 14pt;
+	font-weight: 500;
+	text-transform: uppercase;
+	line-height: 40px;
+	outline: 0;
+	background: rgb(0,0,0,0.5);
+	border-radius: 15px 15px 0px 0px;
+	color: white;
+}
+
+#menu li:hover a, #menu li.active a, #menu li.active span
+{
+	background: black;
+	border-radius: 15px 15px 0px 0px;
+	color: white;
+}
+
+#menu .current_page_item a
+{
+}
+
+/*********************************Wrapper**************************************/
+.wrapper
+{
+	overflow: hidden;
+	padding: 0px 0px 60px 0px;
+	background: black;
+	height: 500px;
+}
+
+#wrapper1
+{
+	background: black;
+}
+
+#wrapper2
+{
+	overflow: hidden;
+	background: black;
+	padding: 60px 0px;
+	text-align: center;
+}
