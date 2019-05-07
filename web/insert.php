@@ -64,13 +64,16 @@
 
 		// sanitize the input from the form to eliminate possible SQL Injection
 
+		$isbn = stripslashes($_POST['isbn']);
+		$isbn = $db->real_escape_string($isbn);
+		
 		$title = stripslashes($_POST['title']);
 		$title = $db->real_escape_string($title);
 		
 		$authorName = stripslashes($_POST['authorName']);
 		$authorName = $db->real_escape_string($authorName);
 		
-		$condition = stripslashes($_POST['condition']);
+		$condition = ($_POST['condition']);
 		$condition = $db->real_escape_string($condition);
 		
 		$price = stripslashes($_POST['price']);
@@ -79,7 +82,7 @@
 		//Photo goes here///////////how the hell we suppose to do that?!?///////////
 		
 		$email = stripslashes($_POST['email']);
-		$email = $db->real_escape_string($title);
+		$email = $db->real_escape_string($email);
 		
 		$password = stripslashes($_POST['password']);
 		$password = $db->real_escape_string($password);
@@ -96,28 +99,47 @@
 		$squadron = stripslashes($_POST['squadron']);
 		$squadron = $db->real_escape_string($squadron);
 		
-		$listDate = '2019-27-04'; ////////eventually it will report date of submission
-
-		// set up a prepared statement to insert the volunteer info
-
-		$query = "INSERT INTO LISTING (title, condition, email, price) 
-		   VALUES ( ?, ?, ?, ?)";  // question marks are parameter locations
-
-		$stmt = $db->prepare($query);  // creates the Prepared Statement
-
-		// binds the parameters of Prepared Statement to corresponding variables
-		// first argument, gives the parameter data types of 3 strings, an int, a date (string?)
-		$stmt->bind_param("sssi", $title, $condition, $email, $price);
-
-		$stmt->execute();  // runs the Prepared Statement query
-
-		echo $stmt->affected_rows.' records inserted.<br/><br/>';  // report results
-
-		$stmt->close();  // deallocate the Prepared Statement
+		$publisher = stripslashes($_POST['publisher']);
+		$publisher = $db->real_escape_string($publisher);
 		
-//////////////////////// INSERT INTO USER  goes here /////////////////////////////
+		
+//////////////////////// INSERT INTO STUDENT  goes here /////////////////////////////
 
-//////////////////////// INSERT INTO STUDENT goes here ///////////////////////////
+		$stmt = $db->prepare('INSERT INTO STUDENT (email, fname, lname, phone, squadron, password)
+			VALUES (?, ?, ?, ?, ?, ?)');
+			
+	
+		$stmt->bind_param("ssssss", $email, $firstName, $lastName, $number, $squadron, $password);		
+		
+		$stmt->execute();
+		
+		
+
+//////////////////////// INSERT INTO BOOK goes here ///////////////////////////
+		
+		$stmt = $db->prepare('INSERT INTO BOOK (isbn, title, publisher)
+			VALUES (?, ?, ?)');
+			
+		$stmt->bind_param("sss", $isbn, $title, $publisher);
+			
+		$stmt->execute();
+		
+		
+//////////////////////// INSERT INTO LISTING goes here ///////////////////////////
+
+		$stmt = $db->prepare('INSERT INTO LISTING (isbn, email, price) 
+		   VALUES ( ?, ?, ?)');  
+
+		   
+		$stmt->bind_param("ssi", $isbn, $email, $price );
+
+		
+		$stmt->execute();  
+		
+		
+		
+		
+		$stmt->close();
 		
 		$db->close();    // close the database connection
 		?>
@@ -125,23 +147,16 @@
 		<table border="1" cellpadding="3">
 		<tr><th>Parameter</th><th>Value</th></tr>
 		<tr><td>Book Title</td><td><?php echo $title; ?></td></tr>
+		<tr><td>ISBN</td><td><?php echo $isbn; ?></td></tr>
 		<tr><td>Author's Name</td><td><?php echo $authorName; ?></td></tr>
-		<tr><td>Condition</td><td><?php echo $condition; ?></td></tr>
+		<!--<tr><td>Condition</td><td><?php echo $condition; ?></td></tr>-->
 		<tr><td>Price</td><td><?php echo $price; ?></td></tr>
 		<tr><td>Email</td><td><?php echo $email; ?></td></tr>
-		<tr><td>Name</td><td><?php echo $firstName; ?></td></tr>
-		<tr><td>Number</td><td><?php echo $number; ?></td></tr>
+		<tr><td>First Name</td><td><?php echo $firstName; ?></td></tr>
+		<tr><td>Last Name</td><td><?php echo $lastName; ?></td></tr>
+		<tr><td>Phone</td><td><?php echo $number; ?></td></tr>
 		<tr><td>Squadron</td><td><?php echo $squadron; ?></td></tr>
-		<tr><td>Date</td><td><?php echo $listDate; ?></td></tr>
 		</table>
-		<br />
-
-		<!-- Below demonstrates how to get system information from PHP -->
-
-		Web page <b><?php echo $_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'] ?></b><br />
-		accessed on <b><?php echo date("Y-m-d H:i") ?></b> 
-		from IP address <b><?php echo $_SERVER['REMOTE_ADDR'] ?></b> via
-		<b><?php echo $_SERVER['REQUEST_METHOD'] ?></b><br/>
 		<br />
 
 		<!-- Give a link back to the main page -->
