@@ -1,5 +1,5 @@
 <!--
-	Documentation: used video at https://www.youtube.com/watch?v=XVsMCtA1Jowto learn how to implement a search bar
+	Documentation: used https://owlcation.com/stem/Simple-search-PHP-MySQL to learn how to implement a search bar
 -->
 
 <head>
@@ -26,19 +26,15 @@
 			<li><a href="login.php" accesskey="4" title="">Edit</a></li>
 		</ul>
 	</div>
+	
+	
 
 	<div class="wrapper">
 		<h2>Buy</h2>
 		
 		<form action="search.php" method="GET">
-			<input type="text" name="query" />
-			<select name="column">
-				<option value="title">Book Title</option>
-				<option value="isbn">ISBN</option>
-				<option value="publisher">Publisher</option>
-				<option value="squadron">Squadron</option>
-			</select>
-			<input type="submit" value="Search" />
+		<input type="text" name="query" />
+		<input type="submit" value="Search" />
 		</form>
 		
 		<table border="1" cellpadding="4" style="margin:auto">
@@ -61,20 +57,26 @@
 		$query = htmlspecialchars($query);
 		$query = mysqli_real_escape_string($db, $query);
 		
-		$column = $_GET['column'];		
-		$column = htmlspecialchars($column);
-		$column = mysqli_real_escape_string($db, $column);
+		echo $query;
 		
-		$results = $db->query("SELECT * FROM listing NATURAL JOIN book NATURAL JOIN student WHERE $column LIKE '%$query%'");
+		$results = mysqli_query($db, "SELECT * FROM listing NATURAL JOIN book NATURAL JOIN student WHERE
+		('title' LIKE '%".$query."%') OR ('author' LIKE '%".$query."%') OR ('isbn' LIKE '%".$query."%') OR 
+		('publisher' LIKE '%".$query."%') OR ('email' LIKE '%".$query."%') OR ('squadron' LIKE '%".$query."%') OR 
+		('fname' LIKE '%".$query."%') OR ('lname' LIKE '%".$query."%')");
 		
 		// determine how many rows were returned
-		if ($results->num_rows > 0){
-			for ($i=0; $i < $results->num_rows; $i++) {
-				$r= $results->fetch_assoc();
-				print '<tr><td>'.$r['title'].'</td><td>'.$r['isbn'].'</td><td>'.$r['publisher'].'</td><td>'.sprintf("$%u",$r['price']).' </td><td>'.sprintf("%s %s", $r['fname'], $r['lname']).'</td><td>'.$r['email'].'</td><td>'.$r['phone'].'</td><td>'.$r['squadron'].'</td></tr>';
-			}
-		}else
-			echo "No results";
+		
+
+		$num_results = mysqli_num_rows($results);
+		echo $num_results;
+
+		// loop through each row building the table rows and data columns
+
+		for ($i=0; $i < $num_results; $i++) 
+		{
+		$r= $results->fetch_assoc();
+		print '<tr><td>'.$r['title'].'</td><td>'.$r['isbn'].'</td><td>'.$r['publisher'].'</td><td>'.sprintf("$%u",$r['price']).' </td><td>'.sprintf("%s %s", $r['fname'], $r['lname']).'</td><td>'.$r['email'].'</td><td>'.$r['phone'].'</td><td>'.$r['squadron'].'</td></tr>';
+		}
 
 		// deallocate memory for the results and close the database connection
 
