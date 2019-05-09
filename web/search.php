@@ -1,3 +1,7 @@
+<!--
+	Documentation: used https://owlcation.com/stem/Simple-search-PHP-MySQL to learn how to implement a search bar
+-->
+
 <head>
 	<title>Textbook Swap</title>
 	<link type="text/css" href="dark.css" rel="stylesheet">
@@ -29,8 +33,8 @@
 		<h2>Buy</h2>
 		
 		<form action="search.php" method="GET">
-			<input type="text" name="query" />
-			<input type="submit" value="Search" />
+		<input type="text" name="query" />
+		<input type="submit" value="Search" />
 		</form>
 		
 		<table border="1" cellpadding="4" style="margin:auto">
@@ -48,14 +52,23 @@
 		echo 'ERROR: Could not connect to database.  Error is '.mysqli_connect_error();
 		exit;
 		}
-
-		// run the SQL query to retrieve the service partner info
-
-		$results = $db->query('SELECT * FROM listing NATURAL JOIN book NATURAL JOIN student');
-
+		
+		$query = $_GET['query'];		
+		$query = htmlspecialchars($query);
+		$query = mysqli_real_escape_string($db, $query);
+		
+		echo $query;
+		
+		$results = mysqli_query($db, "SELECT * FROM listing NATURAL JOIN book NATURAL JOIN student WHERE
+		('title' LIKE '%".$query."%') OR ('author' LIKE '%".$query."%') OR ('isbn' LIKE '%".$query."%') OR 
+		('publisher' LIKE '%".$query."%') OR ('email' LIKE '%".$query."%') OR ('squadron' LIKE '%".$query."%') OR 
+		('fname' LIKE '%".$query."%') OR ('lname' LIKE '%".$query."%')");
+		
 		// determine how many rows were returned
+		
 
-		$num_results = $results->num_rows;
+		$num_results = mysqli_num_rows($results);
+		echo $num_results;
 
 		// loop through each row building the table rows and data columns
 
@@ -71,9 +84,12 @@
 		$db->close();
 
 		?>		
-		</table>		
+		</table>
+
+		<a href="buy.php">Exit Search</a>		
 	</div>
+	
+	
 
 </body>
 </html>
-

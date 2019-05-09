@@ -138,7 +138,7 @@
 		<tr>
 			<td colspan="4">
 				<center>
-					<form name="selling_info" method="post" id="volunteer_form" action="insert.php" onsubmit="return validateForm()">
+					<form name="selling_info" method="POST" id="sell_form" action="insert.php" enctype="multipart/form-data" onsubmit="return validateForm()">
 						<h3>Enter the book information</h3>
 						<div id="formFeedback" class="formError"></div>
 						<table>
@@ -165,11 +165,11 @@
 									<td><input type="text" name="price" maxlength="10" size="10" align="left"></input></td>
 									<td><div id="priceFeedback" class="formError"></div></td>
 								</tr>
-								<tr>
+								<!--<tr>
 									<td>Upload Photo: </td>
-									<!-- <input disabled type="file" name="pic" accept="image/*"> -->
-								</tr>
-								<tr>
+									<td><input type="file" name="image"></td>
+								</tr> -->
+								<tr> 
 									<td>Your Email: </td>
 									<td><input type="text" name="email" size="50" align="left"></input></td>
 									<td><div id="emailFeedback" class="formError"></div></td>

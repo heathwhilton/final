@@ -73,14 +73,12 @@
 		$authorName = stripslashes($_POST['authorName']);
 		$authorName = $db->real_escape_string($authorName);
 		
-		$condition = ($_POST['condition']);
-		$condition = $db->real_escape_string($condition);
-		
 		$price = stripslashes($_POST['price']);
 		$price = $db->real_escape_string($price);
 		
-		//Photo goes here///////////how the hell we suppose to do that?!?///////////
-		
+		//$image = $_FILES['image']['tmp_name'];
+		//$image = addslashes(file_get_contents($image));
+
 		$email = stripslashes($_POST['email']);
 		$email = $db->real_escape_string($email);
 		
@@ -127,19 +125,12 @@
 		
 //////////////////////// INSERT INTO LISTING goes here ///////////////////////////
 
-		$stmt = $db->prepare('INSERT INTO LISTING (isbn, email, price) 
-		   VALUES ( ?, ?, ?)');  
+		$insert = $db->prepare('INSERT INTO listing (isbn, email, price) 
+			VALUES(?, ?, ?)'); 
 
-		   
-		$stmt->bind_param("ssi", $isbn, $email, $price );
-
+		$insert->bind_param("ssi", $isbn, $email, $price);
 		
-		$stmt->execute();  
-		
-		
-		
-		
-		$stmt->close();
+		$insert->execute();
 		
 		$db->close();    // close the database connection
 		?>
@@ -149,7 +140,6 @@
 		<tr><td>Book Title</td><td><?php echo $title; ?></td></tr>
 		<tr><td>ISBN</td><td><?php echo $isbn; ?></td></tr>
 		<tr><td>Author's Name</td><td><?php echo $authorName; ?></td></tr>
-		<!--<tr><td>Condition</td><td><?php echo $condition; ?></td></tr>-->
 		<tr><td>Price</td><td><?php echo $price; ?></td></tr>
 		<tr><td>Email</td><td><?php echo $email; ?></td></tr>
 		<tr><td>First Name</td><td><?php echo $firstName; ?></td></tr>
@@ -158,7 +148,8 @@
 		<tr><td>Squadron</td><td><?php echo $squadron; ?></td></tr>
 		</table>
 		<br />
-
+		
+		
 		<!-- Give a link back to the main page -->
 
 		<a href="buy.php">Click Here</a> to return to the listings page.
