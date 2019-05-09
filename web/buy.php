@@ -30,6 +30,12 @@
 		
 		<form action="search.php" method="GET">
 			<input type="text" name="query" />
+			<select name="column">
+				<option value="title">Book Title</option>
+				<option value="isbn">ISBN</option>
+				<option value="publisher">Publisher</option>
+				<option value="squadron">Squadron</option>
+			</select>
 			<input type="submit" value="Search" />
 		</form>
 		
