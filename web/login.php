@@ -32,14 +32,14 @@
 					<td colspan="2">
 					  <div id="formFeedback" class="formError">
 						<?php 
-						  if (isset($_GET['err'])) {echo 'ERROR: Username - password not valid.'; }
+						  if (isset($_GET['err'])) {echo 'ERROR: email - password not valid.'; }
 						?>
 					  </div>
 					</td>
 				  </tr>
 				  <tr>
 					<td>Email</td>
-					<td><input name="myusername" type="text" id="myusername"></td>
+					<td><input name="myemail" type="text" id="myemail"></td>
 				  </tr>
 				  <tr>
 					<td>Password</td>

@@ -6,7 +6,7 @@
 
   // check if userEmail and password were sent
 
-  if ( (isset($_POST['myusername'])) && (isset($_POST['mypassword'])) )
+  if ( (isset($_POST['myemail'])) && (isset($_POST['mypassword'])) )
   {     // authentication check
 
     // open connection to the database on LOCALHOST with 
@@ -24,8 +24,8 @@
 
     // sanitize the input from the form to eliminate possible SQL Injection
 
-    $myusername = stripslashes($_POST['myusername']);
-    $myusername = $db->real_escape_string($myusername);
+    $myemail = stripslashes($_POST['myemail']);
+    $myemail = $db->real_escape_string($myemail);
 
     $mypassword = stripslashes($_POST['mypassword']);
     $mypassword = $db->real_escape_string($mypassword);
@@ -36,11 +36,11 @@
 
     // check that userEmail / password pair exists
 
-    $checkQuery = "SELECT * FROM USERS WHERE (userEmail = ?) AND (userPassword = ?)";
+    $checkQuery = "SELECT * FROM STUDENT WHERE (email = ?) AND (password = ?)";
 
     $checkStmt = $db->prepare($checkQuery);
 
-    $checkStmt->bind_param("ss", $myusername, $mypassword);
+    $checkStmt->bind_param("ss", $myemail, $mypassword);
 
     $checkStmt->execute();
 
@@ -61,7 +61,7 @@
 
     // set session variable for user name
 
-    $_SESSION['myusername']=$_POST['myusername'];
+    $_SESSION['myemail']=$_POST['myemail'];
     header("location:edit.php"); 
     exit;
     }

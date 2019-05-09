@@ -4,7 +4,7 @@
   session_start();
 
   // if no username set, then redirect to login
-  if(!isset($_SESSION['myusername'])){
+  if(!isset($_SESSION['myemail'])){
     header("location:login.php");
     exit;
   }
@@ -24,61 +24,36 @@
 
     <script type="text/javascript">
 
-      function verifyUpdate()  // used to housekeep when Update User is pressed
+      function verifyUpdate()  // used to housekeep when Update Entry is pressed
       {
-        document.getElementById('newUserFormFeedback').innerHTML = "";
-        document.getElementById('deleteUserFormFeedback').innerHTML = "";
-        document.getElementById('updateUserFormFeedback').innerHTML = "";
+        document.getElementById('newEntryFormFeedback').innerHTML = "";
+        document.getElementById('deleteEntryFormFeedback').innerHTML = "";
+        document.getElementById('updateEntryFormFeedback').innerHTML = "";
         return true;
       }
 
-      function verifyDelete()  // used to housekeep and confirm on Delete User
+      function verifyDelete()  // used to housekeep and confirm on Delete Entry
       {
-        document.getElementById('newUserFormFeedback').innerHTML = "";
-        document.getElementById('deleteUserFormFeedback').innerHTML = "";
-        document.getElementById('updateUserFormFeedback').innerHTML = "";
-        var result=confirm("Are you sure you want to delete this user?");
+        document.getElementById('newEntryFormFeedback').innerHTML = "";
+        document.getElementById('deleteEntryFormFeedback').innerHTML = "";
+        document.getElementById('updateEntryFormFeedback').innerHTML = "";
+        var result=confirm("Are you sure you want to delete this entry?");
         if (result==false) 
-          document.getElementById('deleteUserFormFeedback').innerHTML = "User not deleted.";
+          document.getElementById('deleteEntryFormFeedback').innerHTML = "Entry not deleted.";
         return result;
       }
 
 
-      function checkNewUserForm()  // used to housekeep and verify for Create User
+      function checkNewEntryForm()  // used to housekeep and verify for Create Entry
       {
 
         // clear old feedback
 
-        document.getElementById('newUserFormFeedback').innerHTML = "";
-        document.getElementById('deleteUserFormFeedback').innerHTML = "";
-        document.getElementById('updateUserFormFeedback').innerHTML = "";
+        document.getElementById('newEntryFormFeedback').innerHTML = "";
+        document.getElementById('deleteEntryFormFeedback').innerHTML = "";
+        document.getElementById('updateEntryFormFeedback').innerHTML = "";
  
         // get form values
-
-        var newUsernameValue = document.forms["new_user_form"]["newUsername"].value;
-        var newPasswordValue = document.forms["new_user_form"]["newPassword"].value;
-        var newPasswordRepeatValue = document.forms["new_user_form"]["newPasswordRepeat"].value;
-
-        if (newUsernameValue == "")
-        {
-          document.getElementById('newUserFormFeedback').innerHTML = 
-                     "ERROR: Must specify a username."
-          return false;
-        }
-
-        if (newPasswordValue == "")
-        {
-          document.getElementById('newUserFormFeedback').innerHTML = 
-                     "ERROR: Must specify a password."
-          return false;
-        }
-
-        if (newPasswordValue != newPasswordRepeatValue)
-        {
-          document.getElementById('newUserFormFeedback').innerHTML = 
-                     "ERROR: Passwords must match."
-          return false;
-        }
 
 	return true;
 
@@ -103,9 +78,9 @@
 	</div>
 
 	<div class="wrapper">
-		<h2>Login to Sell</h2>
+		<h2>Edit your Listings</h2>
 
-<!-- ************************** Update User Form ************************************ -->
+<!-- ************************** Update Entry Form ************************************ -->
 
               <hr>
               <form name="update_listing_form" method="post" id="update_listing_form" 
@@ -114,12 +89,12 @@
                   <tr>
                     <td colspan="3">
                       <center>
-                      <div id="updateUserFormFeedback" class="formError">
+                      <div id="updateEntryFormFeedback" class="formError">
                         <?php 
-                          if (isset($_GET['updateUserError'])) 
-                             {echo 'ERROR: User could not be updated.'; }
-                          if (isset($_GET['updateUserSuccess'])) 
-                             {echo '<font color="green">Selected user was updated.</font>'; }
+                          if (isset($_GET['updateEntryError'])) 
+                             {echo 'ERROR: Entry could not be updated.'; }
+                          if (isset($_GET['updateEntrySuccess'])) 
+                             {echo '<font color="green">Selected entry was updated.</font>'; }
                         ?>
                       </div>
                       </center>
@@ -128,8 +103,8 @@
                   <tr>
                     <td>Select Your Listing: </td>
                     <td>
-                      <select name="user">
-                        <?php include('#'); ?>
+                      <select name="listings">
+                        <?php include('build_entry_select.php'); ?>
                       </select>
                     </td>
                     <td>
@@ -139,21 +114,21 @@
                 </table>
               </form>
 
-<!-- ************************** Delete Listing Form ************************************ -->
+<!-- ************************** Edit Listing Form ************************************ -->
 
               <hr>
-              <form name="delete_listing_form" method="post" id="delete_listing_form" 
-                    action="#" onsubmit="return verifyDelete()">
+              <form name="delete_entry_form" method="post" id="delete_entry_form" 
+                    action="delete_entry.php" onsubmit="return verifyDelete()">
                 <table border="0" cellpadding="3" cellspacing="1">
                   <tr>
                     <td colspan="3">
                       <center>
-                      <div id="deleteUserFormFeedback" class="formError">
+                      <div id="deleteEntryFormFeedback" class="formError">
                         <?php 
-                          if (isset($_GET['deleteUserError'])) 
-                             {echo 'ERROR: User could not be deleted.'; }
-                          if (isset($_GET['deleteUserSuccess'])) 
-                             {echo '<font color="green">Selected user was deleted.</font>'; }
+                          if (isset($_GET['deleteEntryError'])) 
+                             {echo 'ERROR: Entry could not be deleted.'; }
+                          if (isset($_GET['deleteEntrySuccess'])) 
+                             {echo '<font color="green">Selected Entry was deleted.</font>'; }
                         ?>
                       </div>
                       </center>
@@ -162,12 +137,12 @@
                   <tr>
                     <td>Select Your Listing: </td>
                     <td>
-                      <select name="user">
-                        <?php include('#'); ?>
+                      <select name="title">
+                        <?php include('build_entry_select.php'); ?>
                       </select>
                     </td>
                     <td>
-                      <center><input type="submit" name="Submit" value="Delete Listing"></center>
+                      <center><input type="submit" name="Submit" value="Delete Entry"></center>
                     </td>
                   </tr>
                 </table>
