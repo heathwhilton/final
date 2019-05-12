@@ -61,11 +61,11 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Username</td>
+                    <td>Email: </td>
                     <td><input name="myusername" type="text" id="myusername"></td>
                   </tr>
                   <tr>
-                    <td>Password</td>
+                    <td>Password: </td>
                     <td><input name="mypassword" type="password" id="mypassword"></td>
                   </tr>
                   <tr>
