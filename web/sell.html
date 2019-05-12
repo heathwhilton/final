@@ -4,116 +4,255 @@
 	<title>Textbook Swap</title>
 	<link type="text/css" href="dark.css" rel="stylesheet">
 	
-	<style type="text/css">
-		.formError { color: red; font-weight: bold }
-	</style>
-	
-	<!-- JavaScript for volunteer form data validation -->
-	<script type="text/javascript">
-		var errorCount = new Number(0);
+		<!-- Set up style for form error feedback areas -->
+		<style type="text/css">
+			.formError { color: red; font-weight: bold }
+		</style>
 		
-		function displayError( errorMsg )
-		{
-			errorCount = errorCount + 1;
+		<!-- JavaScript for volunteer form data validation -->
+		<script type="text/javascript">
+			var errorCount = new Number(0);
+			
+			function displayError( errorMsg )
+			{
+				errorCount = errorCount + 1;
 
-			if (document.getElementById('formFeedback').innerHTML != "")
-			{
-				document.getElementById('formFeedback').innerHTML =
-					document.getElementById('formFeedback').innerHTML + "<br/>" + "Error #" + errorCount + " - " + errorMsg;
+				if (document.getElementById('formFeedback').innerHTML != "")
+				{
+					document.getElementById('formFeedback').innerHTML =
+						document.getElementById('formFeedback').innerHTML + "<br/>" + "Error #" + errorCount + " - " + errorMsg;
+				}
+				else
+				{
+					document.getElementById('formFeedback').innerHTML = "Error #" + errorCount + " - " + errorMsg;
+				}
 			}
-			else
+		
+			function validateForm()
 			{
-				document.getElementById('formFeedback').innerHTML = "Error #" + errorCount + " - " + errorMsg;
-			}
-		}
-	
-		function validateForm()
-		{
-		// reset error indicators
-			errorCount = 0;
-			document.getElementById('formFeedback').innerHTML = "";
-			
-			var validForm = new Boolean(true);
-			
-		// first names must be letter, spaces, and hyphens and 50 or fewer characters
-			var validInputValue = new Boolean(true);
-			var firstNameValue = document.forms["selling_info"]["firstName"].value;
-			var myRegExp = new RegExp("^[a-zA-Z -]{1,50}$");
-			
-		// Test our receivedValue string against the regular expression
-			validInputValue = myRegExp.test(firstNameValue);  
-			
-		// Update form feedback
-			if (validInputValue) 
-			{
-				document.getElementById('firstNameFeedback').innerHTML = "";
-			}
-			else
-			{
-				validForm = false;
-				displayError("First name must be letters, hyphens, spaces and 50 or fewer characters" );
-				document.getElementById('firstNameFeedback').innerHTML = "Error #" + errorCount;
-			}
+			// reset error indicators
+				errorCount = 0;
+				document.getElementById('formFeedback').innerHTML = "";
+				
+				var validForm = new Boolean(true);
+			//---------------------------------------------TOP-------------------------------------
+			// Title ---------------------------------
+				var titleValue = document.forms["selling_info"]["title"].value;
+				myRegExp = new RegExp("^.{1,50}$");
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(titleValue);  
+				
+			// Update form feedback
+				if (validInputValue)
+				{
+					document.getElementById('titleFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("Title must be 50 or fewer characters");
+					document.getElementById('titleFeedback').innerHTML = "Error #" + errorCount;
+				}
+				
+			// ISBN ---------------------------------
+				var isbnValue = document.forms["selling_info"]["isbn"].value;
 
-		// last names must be letter, spaces, and hyphens and 50 or fewer characters
-			var lastNameValue = document.forms["selling_info"]["lastName"].value;
+				myRegExp = new RegExp("^[0-9]{13}$");
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(isbnValue);  
+				
+			// Update form feedback
+				if (validInputValue)
+				{
+					document.getElementById('isbnFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("ISBN must be a 13 digit long number");
+					document.getElementById('isbnFeedback').innerHTML = "Error #" + errorCount;
+				}
+				
+			// Publisher ---------------------------------
+				var publisherValue = document.forms["selling_info"]["publisher"].value;
+				myRegExp = new RegExp("^[a-zA-Z0-9 _./!?@#%&+-]{1,50}$");
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(publisherValue);  
+				
+			// Update form feedback
+				if (validInputValue)
+				{
+					document.getElementById('publisherFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("Publisher cannot have special characters");
+					document.getElementById('publisherFeedback').innerHTML = "Error #" + errorCount;
+				}
+				
+			// Author's Name ---------------------------------
+				var authorNameValue = document.forms["selling_info"]["authorName"].value;
+				myRegExp = new RegExp("^[a-zA-Z -.]{1,50}$");
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(authorNameValue);  
+				
+			// Update form feedback
+				if (validInputValue)
+				{
+					document.getElementById('authorNameFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("Author names may cointain spaces, hyphens, or periods and must be 50 or fewer characters");
+					document.getElementById('authorNameFeedback').innerHTML = "Error #" + errorCount;
+				}
 			
-		// Test our receivedValue string against the regular expression
-			validInputValue = myRegExp.test(lastNameValue);  
+			// Price ---------------------------------
+				var priceValue = document.forms["selling_info"]["price"].value;
+				myRegExp = new RegExp("^[0-9.]{1,7}$");
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(priceValue);  
+				
+			// Update form feedback
+				if (validInputValue)
+				{
+					document.getElementById('priceFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("Price must be numeric up to the thousands");
+					document.getElementById('priceFeedback').innerHTML = "Error #" + errorCount;
+				}	
+				
+			// Email ---------------------------
+				var emailValue = document.forms["selling_info"]["email"].value;
+				myRegExp = new RegExp("^[a-zA-Z0-9_.]+@[a-zA-Z0-9_.]+$");
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(emailValue);  
+				
+			// Update form feedback
+				if (validInputValue) 
+				{
+					document.getElementById('emailFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("Email address must be letters, digits, underscores, and periods with one @");
+					document.getElementById('emailFeedback').innerHTML = "Error #" + errorCount;
+				}
 			
-		// Update form feedback
-			if (validInputValue) 
-			{
-				document.getElementById('lastNameFeedback').innerHTML = "";
-			}
-			else
-			{
-				validForm = false;
-				displayError("Last name must be letters, hyphens, spaces and 50 or fewer characters" );
-				document.getElementById('lastNameFeedback').innerHTML = "Error #" + errorCount;
-			}
+			// Password ---------------------------------
+				var passwordValue = document.forms["selling_info"]["password"].value;
+				myRegExp = new RegExp("^.{1,26}$");
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(passwordValue);  
+				
+			// Update form feedback
+				if (validInputValue)
+				{
+					document.getElementById('passwordFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("Passwords must be between 4 and 26 characters long ");
+					document.getElementById('passwordFeedback').innerHTML = "Error #" + errorCount;
+				}			
+			
+			// Names ---------------------------------
+				var validInputValue = new Boolean(true);
+				var firstNameValue = document.forms["selling_info"]["firstName"].value;
+				var myRegExp = new RegExp("^[a-zA-Z -]{1,50}$");
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(firstNameValue);  
+				
+			// Update form feedback
+				if (validInputValue) 
+				{
+					document.getElementById('firstNameFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("Names must be letters, hyphens, spaces and 50 or fewer characters" );
+					document.getElementById('firstNameFeedback').innerHTML = "Error #" + errorCount;
+				}
 
-		// email address must be letters, digits, underscores, and periods with one @
-			var emailAddressValue = document.forms["selling_info"]["emailAddress"].value;
-			myRegExp = new RegExp("^[a-zA-Z0-9_.]+@[a-zA-Z0-9_.]+$");
+			// Last Name -----
+				var lastNameValue = document.forms["selling_info"]["lastName"].value;
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(lastNameValue);  
+				
+			// Update form feedback
+				if (validInputValue) 
+				{
+					document.getElementById('lastNameFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("Names must be letters, hyphens, spaces and 50 or fewer characters" );
+					document.getElementById('lastNameFeedback').innerHTML = "Error #" + errorCount;
+				}		
 			
-		// Test our receivedValue string against the regular expression
-			validInputValue = myRegExp.test(emailAddressValue);  
+			// Phone Number ---------------------------------
+				var numberValue = document.forms["selling_info"]["number"].value;
+				myRegExp = new RegExp("^[0-9]{10}$");
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(numberValue);  
+				
+			// Update form feedback
+				if (validInputValue)
+				{
+					document.getElementById('numberFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("Phone number must be 10 digits in length including area code");
+					document.getElementById('numberFeedback').innerHTML = "Error #" + errorCount;
+				}				
 			
-		// Update form feedback
-			if (validInputValue) 
-			{
-				document.getElementById('emailFeedback').innerHTML = "";
-			}
-			else
-			{
-				validForm = false;
-				displayError("Email address must be letters, digits, underscores, and periods with one @");
-				document.getElementById('emailFeedback').innerHTML = "Error #" + errorCount;
-			}
+			// Squadron ---------------------------------
+				var squadronValue = document.forms["selling_info"]["squadron"].value;
 
-		// price
-			var priceValue = document.forms["selling_info"]["price"].value;
-			myRegExp = new RegExp("^[0-9]$");  // check that age is numeric
+				myRegExp = new RegExp("^[0-9]{1,2}$");  // check that price is numeric
+				
+			// Test our receivedValue string against the regular expression
+				validInputValue = myRegExp.test(squadronValue);  
+				
+				var squadron = new Number(squadronValue);  // convert to a number
+				
+			// Update form feedback
+				if ((validInputValue) && (squadron >= 1) && (squadron <= 40)) 
+				{
+					document.getElementById('squadronFeedback').innerHTML = "";
+				}
+				else
+				{
+					validForm = false;
+					displayError("Squadron value must be between 1 and 40");
+					document.getElementById('squadronFeedback').innerHTML = "Error #" + errorCount;
+				}
 			
-		// Test our receivedValue string against the regular expression
-			validInputValue = myRegExp.test(priceValue);  
-			
-			var price = new Number(priceValue);  // convert to a number
-			
-		// Update form feedback
-			if ((validInputValue) && (age > 0) && (age <= 999)) 
-			{
-				document.getElementById('priceFeedback').innerHTML = "";
+			//--------------------------------------------------------------------------------			
+			return validForm;
 			}
-			else
-			{
-				validForm = false;
-				displayError("Price must be numeric in range of 0 to 999 inclusive");
-				document.getElementById('priceFeedback').innerHTML = "Error #" + errorCount;
-			}
-
-	</script>		
+		</script>
 </head>
 
 <div id="header" class="container">
@@ -134,7 +273,8 @@
 
 	<div class="wrapper">
 		<h2>Sell</h2>
-
+		
+		<div style="height:450px;overflow:auto;">
 		<tr>
 			<td colspan="4">
 				<center>
@@ -146,23 +286,27 @@
 								<tr>
 									<td>Book Title: </td>
 									<td><input type="text" name="title" maxlength="50" size="50" align="left"></input></td>
+									<td><div id="titleFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
 									<td>ISBN: </td>
 									<td><input type="text" name="isbn" maxlength="13" size="13" align="left"></input></td>
+									<td><div id="isbnFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
 									<td>Publisher: </td>
-									<td><input type="text" name="publisher" maxlength="30" size="30" align="left"></input></td>
+									<td><input type="text" name="publisher" maxlength="50" size="50" align="left"></input></td>
+									<td><div id="publisherFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
 								<tr>
 									<td>Author's Name: </td>
 									<td><input type="text" name="authorName" maxlength="50" size="50" align="left"></input></td>
+									<td><div id="authorNameFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
 									<td>Price: </td>
-									<td><input type="text" name="price" maxlength="10" size="10" align="left"></input></td>
+									<td><input type="text" name="price" maxlength="7" size="7" align="left"></input></td>
 									<td><div id="priceFeedback" class="formError"></div></td>
 								</tr>
 								<!--<tr>
@@ -171,33 +315,36 @@
 								</tr> -->
 								<tr> 
 									<td>Your Email: </td>
-									<td><input type="text" name="email" size="50" align="left"></input></td>
+									<td><input type="text" name="email" maxlength="50" size="50" align="left"></input></td>
 									<td><div id="emailFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
 									<td>Your Password: </td>
-									<td><input type="text" name="password" size="50" align="left"></input></td>
+									<td><input type="password" name="password" maxlength="26" size="50" align="left"></input></td>
+									<td><div id="passwordFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
 									<td>Your First Name: </td>
-									<td><input type="text" name="firstName" size="25" align="left"></input></td>
+									<td><input type="text" name="firstName" maxlength="50" size="50" align="left"></input></td>
 									<td><div id="firstNameFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
 									<td>Your Last Name: </td>
-									<td><input type="text" name="lastName" size="25" align="left"></input></td>
+									<td><input type="text" name="lastName" maxlength="50" size="50" align="left"></input></td>
 									<td><div id="lastNameFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
 									<td>Phone Number: </td>
-									<td><input type="text" name="number" size="10" align="left"></input></td>
+									<td><input type="text" name="number" maxlength="10" size="10" align="left"></input></td>
+									<td><div id="numberFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
 									<td>Squadron: </td>
-									<td><input type="text" name="squadron" size="2" align="left"></input></td>
+									<td><input type="text" name="squadron" maxlength="2" size="2" align="left"></input></td>
+									<td><div id="squadronFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
-									<td colspan="2"><br/><input type="submit" value="Sell"></input></td>
+									<td colspan="3"><br/><center><input type="submit" value="Sell"></input></center></td>
 								</tr>
 							</tbody>
 						</table>
@@ -205,8 +352,10 @@
 				</center>
 			</td>
 		</tr>
+		</div>
 	</div>
 
 </body>
+<script src="script.js"></script>
 </html>
 
