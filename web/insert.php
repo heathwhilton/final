@@ -101,7 +101,7 @@
 			VALUES (?, ?, ?, ?, ?, ?)');
 			
 	
-		$stmt->bind_param("ssssss", $email, $firstName, $lastName, $number, $squadron, $password);		
+		$stmt->bind_param("ssssss", $email, $firstName, $lastName, $number, $squadron, md5($password));		
 		
 		$stmt->execute();
 		
@@ -151,5 +151,6 @@
 	</div>
 
 </body>
+<script src="script.js"></script>
 </html>
 

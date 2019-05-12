@@ -25,7 +25,7 @@
 	
 	
 
-	<div class="wrapper">
+	<div class="wrapper" >
 		<h2>Buy</h2>
 		
 		<form action="search.php" method="GET">
@@ -39,47 +39,53 @@
 			<input type="submit" value="Search" />
 		</form>
 		
-		<table border="1" cellpadding="4" style="margin:auto">
-		<tr><th>Book Title</th><th>ISBN</th><th>Publisher</th><th>Asking Price</th><th>Seller Name</th><th>Seller Email</th><th>Seller Phone</th><th>Seller Squad</th></tr>
-		<?php 
-		// open connection to the database on LOCALHOST with 
-		// userid of 'root', password '', and database 'web'
+		<div style="height:450px;overflow:auto;">
+			<table border="1" cellpadding="4" style="margin:auto">
+			<tr><th>Book Title</th><th>ISBN</th><th>Publisher</th><th>Asking Price</th><th>Seller Name</th><th>Seller Email</th><th>Seller Phone</th><th>Seller Squad</th></tr>
+			<?php 
+			// open connection to the database on LOCALHOST with 
+			// userid of 'root', password '', and database 'web'
 
-		@ $db = new mysqli('LOCALHOST', 'root', '', 'web');
+			@ $db = new mysqli('LOCALHOST', 'root', '', 'web');
 
-		// Check if there were error and if so, report and exit
+			// Check if there were error and if so, report and exit
 
-		if (mysqli_connect_errno()) 
-		{ 
-		echo 'ERROR: Could not connect to database.  Error is '.mysqli_connect_error();
-		exit;
-		}
+			if (mysqli_connect_errno()) 
+			{ 
+			echo 'ERROR: Could not connect to database.  Error is '.mysqli_connect_error();
+			exit;
+			}
 
-		// run the SQL query to retrieve the service partner info
+			// run the SQL query to retrieve the service partner info
 
-		$results = $db->query('SELECT * FROM listing NATURAL JOIN book NATURAL JOIN student');
+			$results = $db->query('SELECT * FROM listing NATURAL JOIN book NATURAL JOIN student');
 
-		// determine how many rows were returned
+			// determine how many rows were returned
 
-		$num_results = $results->num_rows;
+			$num_results = $results->num_rows;
 
-		// loop through each row building the table rows and data columns
+			// loop through each row building the table rows and data columns
 
-		for ($i=0; $i < $num_results; $i++) 
-		{
-		$r= $results->fetch_assoc();
-		print '<tr><td>'.$r['title'].'</td><td>'.$r['isbn'].'</td><td>'.$r['publisher'].'</td><td>'.sprintf("$%u",$r['price']).' </td><td>'.sprintf("%s %s", $r['fname'], $r['lname']).'</td><td>'.$r['email'].'</td><td>'.$r['phone'].'</td><td>'.$r['squadron'].'</td></tr>';
-		}
+			for ($i=0; $i < $num_results; $i++) 
+			{
+			$r= $results->fetch_assoc();
+			
 
-		// deallocate memory for the results and close the database connection
+				
+			print '<tr><td>'.$r['title'].'</td><td>'.$r['isbn'].'</td><td>'.$r['publisher'].'</td><td>'.sprintf("$%u",$r['price']).' </td><td>'.sprintf("%s %s", $r['fname'], $r['lname']).'</td><td>'.$r['email'].'</td><td>'.sprintf("(%s) %s-%s",substr($r['phone'], 0, 3),substr($r['phone'], 3, 3),substr($r['phone'], 6)).'</td><td>'.$r['squadron'].'</td></tr>';
+			}
 
-		$results->free();
-		$db->close();
+			// deallocate memory for the results and close the database connection
 
-		?>		
-		</table>		
+			$results->free();
+			$db->close();
+
+			?>		
+			</table>
+		</div>
 	</div>
 
 </body>
+<script src="script.js"></script>
 </html>
 
