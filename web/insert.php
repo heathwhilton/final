@@ -70,8 +70,14 @@
 		$title = stripslashes($_POST['title']);
 		$title = $db->real_escape_string($title);
 		
+		$authorName = stripslashes($_POST['authorName']);
+		$authorName = $db->real_escape_string($authorName);
+		
 		$price = stripslashes($_POST['price']);
 		$price = $db->real_escape_string($price);
+		
+		//$image = $_FILES['image']['tmp_name'];
+		//$image = addslashes(file_get_contents($image));
 
 		$email = stripslashes($_POST['email']);
 		$email = $db->real_escape_string($email);
@@ -133,6 +139,7 @@
 		<tr><th>Parameter</th><th>Value</th></tr>
 		<tr><td>Book Title</td><td><?php echo $title; ?></td></tr>
 		<tr><td>ISBN</td><td><?php echo $isbn; ?></td></tr>
+		<tr><td>Author's Name</td><td><?php echo $authorName; ?></td></tr>
 		<tr><td>Price</td><td><?php echo $price; ?></td></tr>
 		<tr><td>Email</td><td><?php echo $email; ?></td></tr>
 		<tr><td>First Name</td><td><?php echo $firstName; ?></td></tr>

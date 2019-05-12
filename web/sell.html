@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<!--
-	Documentation: used http://www.syntaxpage.com/javascript/type-casting to learn how to typecast str to int using parseInt
--->
 
 <head>
 	<title>Textbook Swap</title>
@@ -11,7 +8,7 @@
 		.formError { color: red; font-weight: bold }
 	</style>
 	
-	<!-- JavaScript for sell form data validation -->
+	<!-- JavaScript for volunteer form data validation -->
 	<script type="text/javascript">
 		var errorCount = new Number(0);
 		
@@ -28,107 +25,94 @@
 			{
 				document.getElementById('formFeedback').innerHTML = "Error #" + errorCount + " - " + errorMsg;
 			}
-
 		}
 	
 		function validateForm()
 		{
-			// Create value variables
-			var title = document.forms["selling_info"]["title"].value;
-			var isbn = document.forms["selling_info"]["isbn"].value;
-			var publisher = document.forms["selling_info"]["publisher"].value;
-			var price = document.forms["selling_info"]["price"].value;
-			var email = document.forms["selling_info"]["email"].value;
-			var password = document.forms["selling_info"]["password"].value;
-			var fname = document.forms["selling_info"]["firstName"].value;
-			var lname = document.forms["selling_info"]["lastName"].value;
-			var phone = document.forms["selling_info"]["number"].value;
-			var squadron = document.forms["selling_info"]["squadron"].value;
+		// reset error indicators
+			errorCount = 0;
+			document.getElementById('formFeedback').innerHTML = "";
 			
-			// Title validation
-			if (title == null || title == ""){
-				alert("Title can't be blank");
-				return false;
-			}
-			if (title.length > 30){
-				alert("Title can't be more than 30 characters");
-				return false;
-			}
+			var validForm = new Boolean(true);
 			
-			// ISBN validation
-			if (isNaN(isbn)){
-				alert("ISBN must be a number");
-				return false;
-			}
-			if (isbn.length != 13){
-				alert("ISBN must be 13 digits long");
-				return false;
-			}
+		// first names must be letter, spaces, and hyphens and 50 or fewer characters
+			var validInputValue = new Boolean(true);
+			var firstNameValue = document.forms["selling_info"]["firstName"].value;
+			var myRegExp = new RegExp("^[a-zA-Z -]{1,50}$");
 			
-			// Publisher validation
-			if (publisher.length > 30){
-				alert("Publisher can't be more than 30 characters");
-				return false;
-			}
+		// Test our receivedValue string against the regular expression
+			validInputValue = myRegExp.test(firstNameValue);  
 			
-			// Price validation
-			if (isNaN(price)){
-				alert("Price must be a number");
-				return false;
+		// Update form feedback
+			if (validInputValue) 
+			{
+				document.getElementById('firstNameFeedback').innerHTML = "";
 			}
-			if (price == null || price == ""){
-				alert("Please include a price");
-				return false;
+			else
+			{
+				validForm = false;
+				displayError("First name must be letters, hyphens, spaces and 50 or fewer characters" );
+				document.getElementById('firstNameFeedback').innerHTML = "Error #" + errorCount;
 			}
+
+		// last names must be letter, spaces, and hyphens and 50 or fewer characters
+			var lastNameValue = document.forms["selling_info"]["lastName"].value;
 			
-			// Email validation
-			emailRegExp = new RegExp("^[a-zA-Z0-9_.]+@[a-zA-Z0-9_.]+$");
+		// Test our receivedValue string against the regular expression
+			validInputValue = myRegExp.test(lastNameValue);  
 			
-			if (!emailRegExp.test(email) || email == null || email == ""){
-				alert("Enter valid email");
-				return false;
+		// Update form feedback
+			if (validInputValue) 
+			{
+				document.getElementById('lastNameFeedback').innerHTML = "";
 			}
+			else
+			{
+				validForm = false;
+				displayError("Last name must be letters, hyphens, spaces and 50 or fewer characters" );
+				document.getElementById('lastNameFeedback').innerHTML = "Error #" + errorCount;
+			}
+
+		// email address must be letters, digits, underscores, and periods with one @
+			var emailAddressValue = document.forms["selling_info"]["emailAddress"].value;
+			myRegExp = new RegExp("^[a-zA-Z0-9_.]+@[a-zA-Z0-9_.]+$");
 			
-			// Password validation
-			if (password == null || password == ""){
-				alert("Please include a password so that you can access your listing later");
-				return false;
-			}
-			if (password.length > 45){
-				alert("Password cannot exceed 45 characters in length");
-				return false;
-			}
+		// Test our receivedValue string against the regular expression
+			validInputValue = myRegExp.test(emailAddressValue);  
 			
-			// First name validation
-			if (fname.length > 25){
-				alert("First name cannot exceed 25 characters in length");
-				return false;
+		// Update form feedback
+			if (validInputValue) 
+			{
+				document.getElementById('emailFeedback').innerHTML = "";
 			}
+			else
+			{
+				validForm = false;
+				displayError("Email address must be letters, digits, underscores, and periods with one @");
+				document.getElementById('emailFeedback').innerHTML = "Error #" + errorCount;
+			}
+
+		// price
+			var priceValue = document.forms["selling_info"]["price"].value;
+			myRegExp = new RegExp("^[0-9]$");  // check that age is numeric
 			
-			// Last name validation
-			if (lname.length > 25){
-				alert("Last name cannot exceed 25 characters in length");
-				return false;
-			}
+		// Test our receivedValue string against the regular expression
+			validInputValue = myRegExp.test(priceValue);  
 			
-			// Phone number validation
-			if (phone != null && phone.length != 10){
-				alert("Phone number must be 10 digits");
-				return false;
-			}
-			if (isNaN(phone)){
-				alert("Please enter your phone number without dashes, space, or parentheses");
-				return false;
-			}
+			var price = new Number(priceValue);  // convert to a number
 			
-			// Squadron validation
-			var squad = parseInt(squadron);
-			
-			if (squad > 40 || squad < 1 || isNaN(squadron)){
-				alert("Squadron must be a number between 1 and 40");
-				return false;
+		// Update form feedback
+			if ((validInputValue) && (age > 0) && (age <= 999)) 
+			{
+				document.getElementById('priceFeedback').innerHTML = "";
 			}
-		}
+			else
+			{
+				validForm = false;
+				displayError("Price must be numeric in range of 0 to 999 inclusive");
+				document.getElementById('priceFeedback').innerHTML = "Error #" + errorCount;
+			}
+
 	</script>		
 </head>
 
@@ -160,14 +144,12 @@
 						<table>
 							<tbody>
 								<tr>
-									<td>Book Title*: </td>
+									<td>Book Title: </td>
 									<td><input type="text" name="title" maxlength="50" size="50" align="left"></input></td>
-									<td><div id="titleFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
-									<td>ISBN*: </td>
+									<td>ISBN: </td>
 									<td><input type="text" name="isbn" maxlength="13" size="13" align="left"></input></td>
-									<td><div id="isbnFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
 									<td>Publisher: </td>
@@ -175,17 +157,25 @@
 								</tr>
 								<tr>
 								<tr>
-									<td>Price*: </td>
+									<td>Author's Name: </td>
+									<td><input type="text" name="authorName" maxlength="50" size="50" align="left"></input></td>
+								</tr>
+								<tr>
+									<td>Price: </td>
 									<td><input type="text" name="price" maxlength="10" size="10" align="left"></input></td>
 									<td><div id="priceFeedback" class="formError"></div></td>
 								</tr>
+								<!--<tr>
+									<td>Upload Photo: </td>
+									<td><input type="file" name="image"></td>
+								</tr> -->
 								<tr> 
-									<td>Your Email*: </td>
+									<td>Your Email: </td>
 									<td><input type="text" name="email" size="50" align="left"></input></td>
 									<td><div id="emailFeedback" class="formError"></div></td>
 								</tr>
 								<tr>
-									<td>Your Password*: </td>
+									<td>Your Password: </td>
 									<td><input type="text" name="password" size="50" align="left"></input></td>
 								</tr>
 								<tr>
