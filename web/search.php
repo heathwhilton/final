@@ -41,53 +41,55 @@
 			<input type="submit" value="Search" />
 		</form>
 		
-		<table border="1" cellpadding="4" style="margin:auto">
-		<tr><th>Book Title</th><th>ISBN</th><th>Publisher</th><th>Asking Price</th><th>Seller Name</th><th>Seller Email</th><th>Seller Phone</th><th>Seller Squad</th></tr>
-		<?php 
-		// open connection to the database on LOCALHOST with 
-		// userid of 'root', password '', and database 'web'
+		<div style="height:450px;overflow:auto;">
+			<table border="1" cellpadding="4" style="margin:auto">
+			<tr><th>Book Title</th><th>ISBN</th><th>Publisher</th><th>Asking Price</th><th>Seller Name</th><th>Seller Email</th><th>Seller Phone</th><th>Seller Squad</th></tr>
+			<?php 
+			// open connection to the database on LOCALHOST with 
+			// userid of 'root', password '', and database 'web'
 
-		@ $db = new mysqli('LOCALHOST', 'root', '', 'web');
+			@ $db = new mysqli('LOCALHOST', 'root', '', 'web');
 
-		// Check if there were error and if so, report and exit
+			// Check if there were error and if so, report and exit
 
-		if (mysqli_connect_errno()) 
-		{ 
-		echo 'ERROR: Could not connect to database.  Error is '.mysqli_connect_error();
-		exit;
-		}
-		
-		$query = $_GET['query'];		
-		$query = htmlspecialchars($query);
-		$query = mysqli_real_escape_string($db, $query);
-		
-		$column = $_GET['column'];		
-		$column = htmlspecialchars($column);
-		$column = mysqli_real_escape_string($db, $column);
-		
-		$results = $db->query("SELECT * FROM listing NATURAL JOIN book NATURAL JOIN student WHERE $column LIKE '%$query%'");
-		
-		// determine how many rows were returned
-		if ($results->num_rows > 0){
-			for ($i=0; $i < $results->num_rows; $i++) {
-				$r= $results->fetch_assoc();
-				print '<tr><td>'.$r['title'].'</td><td>'.$r['isbn'].'</td><td>'.$r['publisher'].'</td><td>'.sprintf("$%u",$r['price']).' </td><td>'.sprintf("%s %s", $r['fname'], $r['lname']).'</td><td>'.$r['email'].'</td><td>'.$r['phone'].'</td><td>'.$r['squadron'].'</td></tr>';
+			if (mysqli_connect_errno()) 
+			{ 
+			echo 'ERROR: Could not connect to database.  Error is '.mysqli_connect_error();
+			exit;
 			}
-		}else
-			echo "No results";
+			
+			$query = $_GET['query'];		
+			$query = htmlspecialchars($query);
+			$query = mysqli_real_escape_string($db, $query);
+			
+			$column = $_GET['column'];		
+			$column = htmlspecialchars($column);
+			$column = mysqli_real_escape_string($db, $column);
+			
+			$results = $db->query("SELECT * FROM listing NATURAL JOIN book NATURAL JOIN student WHERE $column LIKE '%$query%'");
+			
+			// determine how many rows were returned
+			if ($results->num_rows > 0){
+				for ($i=0; $i < $results->num_rows; $i++) {
+					$r= $results->fetch_assoc();
+					print '<tr><td>'.$r['title'].'</td><td>'.$r['isbn'].'</td><td>'.$r['publisher'].'</td><td>'.sprintf("$%u",$r['price']).' </td><td>'.sprintf("%s %s", $r['fname'], $r['lname']).'</td><td>'.$r['email'].'</td><td>'.$r['phone'].'</td><td>'.$r['squadron'].'</td></tr>';
+				}
+			}else
+				echo "No results";
 
-		// deallocate memory for the results and close the database connection
+			// deallocate memory for the results and close the database connection
 
-		$results->free();
-		$db->close();
+			$results->free();
+			$db->close();
 
-		?>		
-		</table>
-
+			?>		
+			</table>
+		</div>
 		<a href="buy.php">Exit Search</a>		
 	</div>
 	
 	
 
 </body>
+<script src="script.js"></script>
 </html>

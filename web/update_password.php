@@ -6,20 +6,11 @@
   if(!isset($_SESSION['myusername'])){
     header("location:login.php");
     exit;
-  }  
-  
-  // check that a orderNumber value was sent
-
-  if ( !isset($_POST['orderNumber']) )
-  {
-    header("location:edit_select.php?deleteEntryError=1"); 
-    exit;
-
   }
-  
-  if ($_POST['orderNumber'] == "")
+
+  if ( !isset($_POST['password']) )
   {
-    header("location:edit.php?deleteEntryError=1"); 
+    header("location:edit_select.php?updatePasswordError=1"); 
     exit;
 
   }
@@ -37,13 +28,16 @@
     exit;
   }
 
-  // delete the selected entry with a prepared statement
+  // update password
+  
+	$password = stripslashes($_POST['password']);
+	$password = $db->real_escape_string($password);
 
-  $query = "DELETE FROM `listing` WHERE orderNumber = ?";
+  $query = "UPDATE `student` SET `password` = ? WHERE `student`.`email` = '".$_SESSION["myusername"]."' ";
 
   $stmt = $db->prepare($query);
 
-  $stmt->bind_param("i", $_POST['orderNumber']);
+  $stmt->bind_param("s", md5($password));
 
   $stmt->execute();
 
@@ -53,7 +47,7 @@
   {
     $stmt->close();
     $db->close();
-    header("location:edit_select.php?deleteEntryError=2");
+    header("location:edit_select.php?updatePasswordError=2");
     exit;
   }
 
@@ -63,8 +57,8 @@
 
   $db->close();
 
-  // return to edit_select.php successfully
+  // return to edit.php successfully
 
-  header("location:edit_select.php?deleteEntrySuccess=1");
+  header("location:edit_select.php?updatePasswordSuccess=1");
 
 ?>
