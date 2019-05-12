@@ -1,23 +1,10 @@
 <?php
-  // retrieve session information
-  session_start();
+  // delete_entry.php - 3/24/2011 - Steve Hadfield 
+  // delete a selected title 
 
-  // if no username set, then redirect to login
-  if(!isset($_SESSION['myusername'])){
-    header("location:login.php");
-    exit;
-  }  
-  
-  // check that a orderNumber value was sent
+  // check that a isbn value was sent
 
-  if ( !isset($_POST['orderNumber']) )
-  {
-    header("location:edit_select.php?deleteEntryError=1"); 
-    exit;
-
-  }
-  
-  if ($_POST['orderNumber'] == "")
+  if ( !isset($_POST['title']) )
   {
     header("location:edit.php?deleteEntryError=1"); 
     exit;
@@ -25,7 +12,7 @@
   }
 
   // open connection to the database on LOCALHOST with 
-  // orderNumber of 'root', password '', and database 'web'
+  // isbn of 'root', password '', and database 'web'
 
   @ $db = new mysqli('LOCALHOST', 'root', '', 'web');
 
@@ -37,13 +24,13 @@
     exit;
   }
 
-  // delete the selected entry with a prepared statement
+  // delete the selected title with a prepared statement
 
-  $query = "DELETE FROM `listing` WHERE orderNumber = ?";
+  $query = "DELETE FROM BOOK WHERE title = ?";
 
   $stmt = $db->prepare($query);
 
-  $stmt->bind_param("i", $_POST['orderNumber']);
+ // $stmt->bind_param("s", $_POST['title']);
 
   $stmt->execute();
 
@@ -51,9 +38,9 @@
 
   if ($stmt->errno <> 0)
   {
-    $stmt->close();
-    $db->close();
-    header("location:edit_select.php?deleteEntryError=2");
+    //$stmt->close();
+    //$db->close();
+    header("location:edit.php?deleteEntryError=2");
     exit;
   }
 
@@ -63,8 +50,8 @@
 
   $db->close();
 
-  // return to edit_select.php successfully
+  // return to edit.php successfully
 
-  header("location:edit_select.php?deleteEntrySuccess=1");
+  header("location:edit.php?deleteEntrySuccess=1");
 
 ?>
