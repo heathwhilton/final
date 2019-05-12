@@ -8,7 +8,7 @@ body
 	margin: 0px;
 	padding: 0px;
 	background-image: url("img/WebsitePic3.jpg");
-	background-color: blue;
+	background-color: black;
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -19,7 +19,7 @@ body
 /*******************************Defaults******************************************/
 h1, h2, h3
 {
-	margin: 20px;
+	margin: 10px;
 	color: white;
 }
 
@@ -43,7 +43,7 @@ p
 
 a
 {
-	color: blue;
+	color: light blue;
 }
 
 a:hover
@@ -148,4 +148,28 @@ a:hover
 	background: black;
 	padding: 60px 0px;
 	text-align: center;
+}
+
+input[type=button], input[type=password], input[type=text], input[type=submit], input[type=reset] {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 4px 8px;
+  text-decoration: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+select {
+  width: 100%;
+  padding: 4px 8px;
+  border: none;
+  color: white;
+  border-radius: 2px;
+  background-color: #4CAF50;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
 }

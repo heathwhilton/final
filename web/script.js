@@ -12,7 +12,7 @@ function addStyleSheet(properties) {
 // add Font Awesome stylesheet for toggle button
 addStyleSheet({
     'rel': 'stylesheet',
-    'href': 'https://use.fontawesome.com/releases/v5.7.2/css/all.css',
+    'href': '#',
     'crossorigin': 'anonymous'
 });
 
@@ -36,7 +36,7 @@ div.style.right = '10px';
 var a = document.createElement('a');
 a.onclick = toggleCSS;
 
-var label = document.createTextNode('Alternate CSS ');
+var label = document.createTextNode('Theme Change');
 
 var span = document.createElement('span');
 span.className = 'fas fa-toggle-off';

@@ -4,6 +4,12 @@
 
     <style type="text/css">
       .formError { color: red; font-weight: bold }
+	  
+	  tr:nth-child(even) {background-color: #262626;}
+	  
+	  select {
+		width: 10%;
+		}
     </style>	
 </head>
 
@@ -28,6 +34,7 @@
 	<div class="wrapper" >
 		<h2>Buy</h2>
 		
+		<center>
 		<form action="search.php" method="GET">
 			<input type="text" name="query" />
 			<select name="column">
@@ -38,9 +45,10 @@
 			</select>
 			<input type="submit" value="Search" />
 		</form>
+		</center>
 		
 		<div style="height:450px;overflow:auto;">
-			<table border="1" cellpadding="4" style="margin:auto">
+			<table cellpadding="4" style="margin:auto">
 			<tr><th>Book Title</th><th>ISBN</th><th>Publisher</th><th>Asking Price</th><th>Seller Name</th><th>Seller Email</th><th>Seller Phone</th><th>Seller Squad</th></tr>
 			<?php 
 			// open connection to the database on LOCALHOST with 

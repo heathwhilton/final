@@ -95,55 +95,51 @@
 
 	<div class="wrapper">
 		<h2>Pick Selection or <a href="logout.php">Logout</a></h2>
-		
+					
 		<div style="height:450px;overflow:auto;">
 		<tr>
 			<td colspan="4">
 				<center>
+				<table>
+					<tbody>
 					<form name="selection_form" method="POST" id="selection_form" action="edit.php" enctype="multipart/form-data" onsubmit="return validateForm()">
-					<div id="formFeedback" class="formError">
-					<div id="deleteEntryFormFeedback" class="formError">
-					<?php 
-					  if (isset($_GET['deleteEntryError=1'])) 
-						 {echo 'ERROR: Entry could not be updated.'; }
-					  if (isset($_GET['deleteEntrySuccess=1'])) 
-						 {echo '<font color="green">Entry was deleted.</font>';}
-					?>
+					<div id="formFeedback" class="formError"></div>
 					</div>
-					</div>
-						<table>
-							<tbody>
 								<tr>
 									<td>Select entry: </td>
-									<td rowspan="2"><select name="entry"><?php include('build_entry_select.php'); ?></select></td>
+									<td><select name="entry"><?php include('build_entry_select.php'); ?></select></td>
 									<td><input type="submit" name="Submit" value="Edit"></td>
 									<td><div id="entryFeedback" class="formError"></div></td>
 								</tr>
-							</tbody>
-						</table>
 					</form>
 					
 					<form name="change_password_form" method="POST" id="change_password_form" action="update_password.php" enctype="multipart/form-data" onsubmit="return validateForm()">
 					<div id="formFeedback" class="formError"></div>
-						<table>
-							<tbody>
 								<tr>
 									<td>Change Password: </td>
 									<td><input type="password" name="password" maxlength="26" size="50" align="left"></input></td>
 									<td><input type="submit" name="Submit" value="Change"></td>
 									<div id="passwordFeedback" class="formError"></div>
 								</tr>
-							<div id="updatePasswordFormFeedback" class="formError">
-							<?php 
-							  if (isset($_GET['updatePasswordError'])) 
-								 {echo 'ERROR: Password could not be updated.'; }
-							  if (isset($_GET['updatePasswordSuccess'])) 
-								 {echo '<font color="green">Password was updated.</font>'; }
-							?>
-							</div>
-							</tbody>
-						</table>
-					</form>				
+					</form>	
+					</tbody>
+				</table>
+				<div id="deleteEntryFormFeedback" class="formError">
+				<?php 
+				  if (isset($_GET['deleteEntryError=1'])) 
+					 {echo 'ERROR: Entry could not be updated.'; }
+				  if (isset($_GET['deleteEntrySuccess=1'])) 
+					 {echo '<font color="green">Entry was deleted.</font>';}
+				?>
+				</div>
+				<div id="updatePasswordFormFeedback" class="formError">
+				<?php 
+				  if (isset($_GET['updatePasswordError'])) 
+					 {echo 'ERROR: Password could not be updated.'; }
+				  if (isset($_GET['updatePasswordSuccess'])) 
+					 {echo '<font color="green">Password was updated.</font>'; }
+				?>
+				</div>				
 				</center>
 			</td>
 		</tr>

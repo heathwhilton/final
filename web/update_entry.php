@@ -120,7 +120,7 @@
 		
 		<!-- Give a link back to the main page -->
 
-		<a href="edit_select.php">Click Here</a> to return to the listings page.
+		<a href="edit_select.php">Click Here</a> to return to the selection page.
 
 	</center> 
 	</div>
